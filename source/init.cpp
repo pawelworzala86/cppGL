@@ -13,7 +13,11 @@
 
 
 
-//typedef void (*GENBUFFERS) (int, GLuint*);
+typedef void (*GLUNIFORM1I) (int, GLuint);
+typedef void (*GLBINDVERTEXARRAY) (int*);
+
+GLUNIFORM1I glUniform1i = NULL;
+GLBINDVERTEXARRAY glBindVertexArray = NULL;
 
 PROC glGenBuffers = NULL;
 PROC glCreateShader = NULL;
@@ -27,7 +31,6 @@ PROC glGetUniformLocation = NULL;
 PROC glUniform4f = NULL;
 PROC glUniform4d = NULL;
 PROC glUniform1d = NULL;
-PROC glUniform1i = NULL;
 PROC glUniform3dv = NULL;
 PROC glUniformMatrix4dv = NULL;
 PROC glBindBuffer = NULL;
@@ -35,7 +38,6 @@ PROC glBufferData = NULL;
 PROC glVertexAttribPointer = NULL;
 PROC glEnableVertexAttribArray = NULL;
 PROC glGenVertexArrays = NULL;
-PROC glBindVertexArray = NULL;
 PROC glDeleteShader = NULL;
 PROC glCreateFramebuffers = NULL;
 PROC glBindFramebuffer = NULL;
@@ -44,7 +46,6 @@ PROC glValidateProgram = NULL;
 PROC glActiveTexture = NULL;
 PROC glGenerateMipmap = NULL;
 PROC glUniform4fv = NULL;
-PROC glUniform1iv = NULL;
 PROC glUniform4dv = NULL;
 PROC glGetShaderiv = NULL;
 PROC glGetShaderInfoLog = NULL;
@@ -85,6 +86,10 @@ int InitGL(){
     GLuint buffer;
     glGenBuffers(1, &buffer);*/
 
+    glUniform1i = (GLUNIFORM1I)wglGetProcAddress("glUniform1iv");
+    glBindVertexArray = (GLBINDVERTEXARRAY)wglGetProcAddress("glBindVertexArray");
+
+
     glGenBuffers = wglGetProcAddress("glGenBuffers");
     glCreateShader = wglGetProcAddress("glCreateShader");
     glCreateProgram = wglGetProcAddress("glCreateProgram");
@@ -97,7 +102,6 @@ int InitGL(){
     glUniform4f = wglGetProcAddress("glUniform4f");
     glUniform4d = wglGetProcAddress("glUniform4d");
     glUniform1d = wglGetProcAddress("glUniform1d");
-    glUniform1i = wglGetProcAddress("glUniform1i");
     glUniform3dv = wglGetProcAddress("glUniform3dv");
     glUniformMatrix4dv = wglGetProcAddress("glUniformMatrix4dv");
     glBindBuffer = wglGetProcAddress("glBindBuffer");
@@ -105,7 +109,6 @@ int InitGL(){
     glVertexAttribPointer = wglGetProcAddress("glVertexAttribPointer");
     glEnableVertexAttribArray = wglGetProcAddress("glEnableVertexAttribArray");
     glGenVertexArrays = wglGetProcAddress("glGenVertexArrays");
-    glBindVertexArray = wglGetProcAddress("glBindVertexArray");
     glDeleteShader = wglGetProcAddress("glDeleteShader");
     glCreateFramebuffers = wglGetProcAddress("glCreateFramebuffers");
     glBindFramebuffer = wglGetProcAddress("glBindFramebuffer");
@@ -114,7 +117,6 @@ int InitGL(){
     glActiveTexture = wglGetProcAddress("glActiveTexture");
     glGenerateMipmap = wglGetProcAddress("glGenerateMipmap");
     glUniform4fv = wglGetProcAddress("glUniform4fv");
-    glUniform1iv = wglGetProcAddress("glUniform1iv");
     glUniform4dv = wglGetProcAddress("glUniform4dv");
     glGetShaderiv = wglGetProcAddress("glGetShaderiv");
     glGetShaderInfoLog = wglGetProcAddress("glGetShaderInfoLog");

@@ -3,7 +3,7 @@
 #include "shader.cpp"
 
 
-void* VAO = NULL;
+int* VAO = NULL;
 int* bufferID = NULL;
 
 double vertices[] = {1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0,1.0,1.0,0.0,-1.0,-1.0,0.0,-1.0,1.0,0.0};
