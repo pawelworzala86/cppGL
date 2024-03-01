@@ -30,10 +30,10 @@ float widthsFnt[] = {7.0,49.0,0.0,49.0,49.0,49.0,49.0,
         28.0,58.0,42.0,42.0,42.0,42.0,39.0,    //;  ABCDE
         35.0,42.0,42.0, 21.0,24.0,42.0,39.0,    //;FGH IJKL
         56.0,42.0,42.0,35.0,42.0,42.0,35.0,    //;MNOPQRS
-        39.0,42.0,42.0, 52.0,42.0,42.0,39.0,    //;TUV WXYZ
+        39.0,42.0,42.0, 55.0,42.0,42.0,39.0,    //;TUV WXYZ
         21.0,17.0,21.0,30.0,32.0,21.0,28.0,    //;      a
-        32.0,28.0,32.0,28.0,21.0,32.0,32.0,    //;bcdefgh
-        17.0,17.0,32.0,17.0,49.0,32.0,32.0,    //;ijklmno
+        32.0,28.0,32.0,32.0,21.0,32.0,32.0,    //;bcdefgh
+        17.0,17.0,32.0,15.0,49.0,32.0,35.0,    //;ijklmno
         32.0,32.0,21.0,24.0,17.0,32.0,32.0,    //;pqrstuv
         46.0,32.0,32.0,28.0,30.0,12.0,30.0,    //;wxyz   
         34.0,32.0,49.0,49.0,49.0,49.0,49.0,     
@@ -205,6 +205,9 @@ void CreateEngine(){
 
 }
 
+
+char* helloWorld = "Hello World";
+
 void RenderGL(){
 
     glClearColor(0.2f, 0.4f, 0.6f, 0.0f);
@@ -237,19 +240,29 @@ glUseProgram(programFontID);
         
         float offsetX = 0.0;
 
-        float sizeX = (widthsFnt[65] / 64.0)*0.2;
+        for(int i=0;i<strlen(helloWorld);i++){
+            int letter = helloWorld[i];
+            //printf("%i",letter);
+        //}
+        uniformLocation = glGetUniformLocation(programFontID, "fontIndex");
+        //printf("%i",uniformLocation);
+        glUniform1i(uniformLocation, letter);
+
+        float sizeX = (widthsFnt[letter] / 64.0)*0.2;
         uniformLocation = glGetUniformLocation(programFontID, "offsetX");
         glUniform1f(uniformLocation, offsetX);
         offsetX += sizeX;
 
         meshTex.Render();
 
-        sizeX = (widthsFnt[65] / 64.0)*0.2;
+        }
+
+        /*sizeX = (widthsFnt[65] / 64.0)*0.2;
         uniformLocation = glGetUniformLocation(programFontID, "offsetX");
         glUniform1f(uniformLocation, offsetX);
         offsetX += sizeX;
 
-        meshTex.Render();
+        meshTex.Render();*/
 
 
 }

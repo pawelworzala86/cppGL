@@ -8,7 +8,7 @@ uniform sampler2D diffuseTexture;
 
 in vec2 vCoord;
 
-int fontIndex = 65;
+uniform int fontIndex;
 
 out vec4 color;
 
@@ -36,7 +36,7 @@ void main()
 
     //coord.x *= float(44.0)/64.0;
 
-    coord += vec2(X,1.0025-Y);
+    coord += vec2(X,1.0026-Y);
 
 	vec3 diffuse = vec3(texture(diffuseTexture, coord).rgb);
 	
