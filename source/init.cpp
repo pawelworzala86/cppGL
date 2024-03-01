@@ -26,14 +26,16 @@ typedef void (*GLUNIFORM1I) (int, GLuint);
 typedef void (*GLBINDVERTEXARRAY) (GLuint);
 typedef void (*GLGENBUFFERS) (int, GLuint*);
 typedef GLuint (*GLCREATESHADER) (GLuint);
+typedef GLuint (*GLCREATEPROGRAM) ();
+typedef void (*GLSHADERSOURCE) (GLuint,int,GLuint*,int);
 
 GLUNIFORM1I glUniform1i = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
 GLGENBUFFERS glGenBuffers = NULL;
 GLCREATESHADER glCreateShader = NULL;
+GLCREATEPROGRAM glCreateProgram = NULL;
+GLSHADERSOURCE glShaderSource = NULL;
 
-PROC glCreateProgram = NULL;
-PROC glShaderSource = NULL;
 PROC glCompileShader = NULL;
 PROC glAttachShader = NULL;
 PROC glLinkProgram = NULL;
@@ -93,9 +95,9 @@ int InitGL(){
     glBindVertexArray = (GLBINDVERTEXARRAY)wglGetProcAddress("glBindVertexArray");
     glGenBuffers = (GLGENBUFFERS)wglGetProcAddress("glGenBuffers");
     glCreateShader = (GLCREATESHADER)wglGetProcAddress("glCreateShader");
+    glCreateProgram = (GLCREATEPROGRAM)wglGetProcAddress("glCreateProgram");
+    glShaderSource = (GLSHADERSOURCE)wglGetProcAddress("glShaderSource");
 
-    glCreateProgram = wglGetProcAddress("glCreateProgram");
-    glShaderSource = wglGetProcAddress("glShaderSource");
     glCompileShader = wglGetProcAddress("glCompileShader");
     glAttachShader = wglGetProcAddress("glAttachShader");
     glLinkProgram = wglGetProcAddress("glLinkProgram");
