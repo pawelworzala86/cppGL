@@ -13,8 +13,8 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
 
     
 
-    GLint Result = GL_FALSE;
-	int InfoLogLength;
+    //GLint Result = GL_FALSE;
+	//int InfoLogLength;
 
 
     HANDLE handle = CreateFile(vertfileName, GENERIC_READ,0,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
@@ -29,14 +29,14 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
     glShaderSource(vertexShader,1, &buffor, NULL);
     glCompileShader(vertexShader);
 
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &Result);
+    /*glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if ( InfoLogLength > 0 ){
 		//std::vector<char> VertexShaderErrorMessage(InfoLogLength+1);
         char* VertexShaderErrorMessage = NULL;
 		glGetShaderInfoLog(vertexShader, InfoLogLength, NULL, &VertexShaderErrorMessage);
 		printf("%s\n", VertexShaderErrorMessage);
-	}
+	}*/
 
 
     handle = CreateFile(fragfileName, GENERIC_READ,0,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
@@ -51,14 +51,14 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
     glShaderSource(fragmentShader,1, &buffor, NULL);
     glCompileShader(fragmentShader);
 
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &Result);
+    /*glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if ( InfoLogLength > 0 ){
 		//std::vector<char> VertexShaderErrorMessage(InfoLogLength+1);
         char* VertexShaderErrorMessage = NULL;
 		glGetShaderInfoLog(fragmentShader, InfoLogLength, NULL, &VertexShaderErrorMessage);
 		printf("%s\n", VertexShaderErrorMessage);
-	}
+	}*/
 
     printf("before creste prog");
 
@@ -68,14 +68,14 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
     glLinkProgram(programID);
 
     // Check the program
-	glGetProgramiv(programID, GL_LINK_STATUS, &Result);
+	/*glGetProgramiv(programID, GL_LINK_STATUS, &Result);
 	glGetProgramiv(programID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if ( InfoLogLength > 0 ){
 		//std::vector<char> ProgramErrorMessage(InfoLogLength+1);
         char* ProgramErrorMessage = NULL;
 		glGetProgramInfoLog(programID, InfoLogLength, NULL, &ProgramErrorMessage);
 		printf("%s\n", ProgramErrorMessage);
-	}
+	}*/
 
 
     glUseProgram(programID);

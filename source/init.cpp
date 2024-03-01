@@ -37,12 +37,16 @@ typedef void (*GLUNIFORM4I) (GLuint,GLuint);
 typedef void (*GLUNIFORM4F) (GLuint,GLfloat);
 typedef void (*GLUNIFORM4D) (GLuint,GLdouble);
 typedef void (*GLUNIFORM3DV) (GLuint,GLdouble*);
+typedef void (*GLUNIFORM4FV) (GLuint,GLfloat*);
+typedef void (*GLUNIFORM4DV) (GLuint,GLdouble*);
 typedef void (*GLUNIFORMMATRIX4DV) (GLuint,GLuint,GLdouble*);
 typedef void (*GLBINDBUFFER) (GLuint,GLuint);
 typedef void (*GLBUFFERDATA) (GLuint,GLuint,void*,GLuint);
 typedef void (*GLVERTEXATTRIBPOINTER) (GLuint,GLuint,GLuint,GLuint,GLuint,GLuint);
 typedef void (*GLENABLEVERTEXATTRIBARRAY) (GLuint);
 typedef void (*GLGETVERTEXARRAYS) (GLuint,GLuint*);
+typedef void (*GLDELETESHADER) (GLuint);
+typedef void (*GLDETACHSHADER) (GLuint,GLuint);
 
 GLUNIFORM1I glUniform1i = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
@@ -59,27 +63,27 @@ GLUNIFORM4F glUniform4f = NULL;
 GLUNIFORM4D glUniform4d = NULL;
 GLUNIFORM4D glUniform1d = NULL;
 GLUNIFORM3DV glUniform3dv = NULL;
+GLUNIFORM4FV glUniform4fv = NULL;
+GLUNIFORM4DV glUniform4dv = NULL;
 GLUNIFORMMATRIX4DV glUniformMatrix4dv = NULL;
 GLBINDBUFFER glBindBuffer = NULL;
 GLBUFFERDATA glBufferData = NULL;
 GLVERTEXATTRIBPOINTER glVertexAttribPointer = NULL;
 GLENABLEVERTEXATTRIBARRAY glEnableVertexAttribArray = NULL;
 GLGETVERTEXARRAYS glGenVertexArrays = NULL;
-
-PROC glDeleteShader = NULL;
-PROC glCreateFramebuffers = NULL;
-PROC glBindFramebuffer = NULL;
-PROC glFramebufferTexture2D = NULL;
-PROC glValidateProgram = NULL;
-PROC glActiveTexture = NULL;
-PROC glGenerateMipmap = NULL;
-PROC glUniform4fv = NULL;
-PROC glUniform4dv = NULL;
-PROC glGetShaderiv = NULL;
+GLDELETESHADER glDeleteShader = NULL;
+GLDETACHSHADER glDetachShader = NULL;
+//PROC glCreateFramebuffers = NULL;
+//PROC glBindFramebuffer = NULL;
+//PROC glFramebufferTexture2D = NULL;
+//PROC glValidateProgram = NULL;
+//PROC glActiveTexture = NULL;
+//PROC glGenerateMipmap = NULL;
+/*PROC glGetShaderiv = NULL;
 PROC glGetShaderInfoLog = NULL;
 PROC glGetProgramiv = NULL;
 PROC glGetProgramInfoLog = NULL;
-PROC glDetachShader = NULL;
+*/
 
 
 
@@ -127,21 +131,19 @@ int InitGL(){
     glVertexAttribPointer = (GLVERTEXATTRIBPOINTER)wglGetProcAddress("glVertexAttribPointer");
     glEnableVertexAttribArray = (GLENABLEVERTEXATTRIBARRAY)wglGetProcAddress("glEnableVertexAttribArray");
     glGenVertexArrays = (GLGETVERTEXARRAYS)wglGetProcAddress("glGenVertexArrays");
+    glDeleteShader = (GLDELETESHADER)wglGetProcAddress("glDeleteShader");
+    glDetachShader = (GLDETACHSHADER)wglGetProcAddress("glDetachShader");
+    //glCreateFramebuffers = wglGetProcAddress("glCreateFramebuffers");
+    //glBindFramebuffer = wglGetProcAddress("glBindFramebuffer");
+    //glFramebufferTexture2D = wglGetProcAddress("glFramebufferTexture2D");
 
-    glDeleteShader = wglGetProcAddress("glDeleteShader");
-    glCreateFramebuffers = wglGetProcAddress("glCreateFramebuffers");
-    glBindFramebuffer = wglGetProcAddress("glBindFramebuffer");
-    glFramebufferTexture2D = wglGetProcAddress("glFramebufferTexture2D");
-    glValidateProgram = wglGetProcAddress("glValidateProgram");
-    glActiveTexture = wglGetProcAddress("glActiveTexture");
-    glGenerateMipmap = wglGetProcAddress("glGenerateMipmap");
-    glUniform4fv = wglGetProcAddress("glUniform4fv");
-    glUniform4dv = wglGetProcAddress("glUniform4dv");
-    glGetShaderiv = wglGetProcAddress("glGetShaderiv");
+    //glValidateProgram = wglGetProcAddress("glValidateProgram");
+    //glActiveTexture = wglGetProcAddress("glActiveTexture");
+    //glGenerateMipmap = wglGetProcAddress("glGenerateMipmap");
+    /*glGetShaderiv = wglGetProcAddress("glGetShaderiv");
     glGetShaderInfoLog = wglGetProcAddress("glGetShaderInfoLog");
     glGetProgramiv = wglGetProcAddress("glGetProgramiv");
-    glGetProgramInfoLog = wglGetProcAddress("glGetProgramInfoLog");
-    glDetachShader = wglGetProcAddress("glDetachShader");
+    glGetProgramInfoLog = wglGetProcAddress("glGetProgramInfoLog");*/
 
 
 
