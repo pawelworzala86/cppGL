@@ -237,14 +237,14 @@ glUseProgram(programFontID);
         
         float offsetX = 0.0;
 
-        float sizeX = (widthsFnt[65] / 64.0)*0.1;
+        float sizeX = (widthsFnt[65] / 64.0)*0.2;
         uniformLocation = glGetUniformLocation(programFontID, "offsetX");
         glUniform1f(uniformLocation, offsetX);
         offsetX += sizeX;
 
         meshTex.Render();
 
-        sizeX = (widthsFnt[65] / 64.0)*0.1;
+        sizeX = (widthsFnt[65] / 64.0)*0.2;
         uniformLocation = glGetUniformLocation(programFontID, "offsetX");
         glUniform1f(uniformLocation, offsetX);
         offsetX += sizeX;
