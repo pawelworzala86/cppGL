@@ -11,6 +11,7 @@ double coords[] = {1.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0};
 
 //char* texfileName = "girl.jpg";
 int gl_texID = 0;
+int gl_texFontID = 0;
 
 GLuint programID;
 
@@ -26,7 +27,7 @@ class CMesh
     public:
         CMesh();
         ~CMesh();
-        void Init();
+        void Init(void* vertices,void* coords);
         void CreateBuffer(int posID,int size,int length,void* array);
         void Render();
 };
@@ -34,12 +35,12 @@ CMesh::CMesh(){
 };
 CMesh::~CMesh(){
 };
-void CMesh::Init(){
+void CMesh::Init(void* vertices,void* coords){
     glGenVertexArrays(1, &this->VAO);
     glBindVertexArray(this->VAO);
 
-    this->CreateBuffer(0,3,18,&vertices);
-    this->CreateBuffer(1,2,12,&coords);
+    this->CreateBuffer(0,3,18,vertices);
+    this->CreateBuffer(1,2,12,coords);
 
     glBindVertexArray(NULL);
 };
@@ -56,11 +57,11 @@ void CMesh::CreateBuffer(int posID,int size,int length,void* array){
 void CMesh::Render(){
     glBindVertexArray(this->VAO);
 
-        //glActiveTexture(GL_TEXTURE0);
+        /*//glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gl_texID);
         GLuint uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
         //printf("%i",uniformLocation);
-        glUniform1i(uniformLocation, 0);
+        glUniform1i(uniformLocation, 0);*/
 
         //glActiveTexture(gl.TEXTURE0);
         ///glBindTexture(gl.TEXTURE_2D, textureID1)
@@ -95,6 +96,7 @@ void CreateBuffer(int posID,int size,int length,void* array){
 
 
 CMesh mesh;
+CMesh meshTex;
 
 
 void CreateEngine(){
@@ -105,8 +107,11 @@ void CreateEngine(){
     programID = CreateShader("default.vert","default.frag");
  
 
-    mesh.Init();
+    mesh.Init(&vertices,&coords);
 
+
+
+    meshTex.Init(&vertices,&coords);
 
 
 
@@ -145,6 +150,8 @@ void CreateEngine(){
 
     gl_texID = LoadTexture("girl.jpg");
 
+    gl_texFontID = LoadTexture("font.png");
+
 }
 
 void RenderGL(){
@@ -154,7 +161,7 @@ void RenderGL(){
 
     //gl.UseProgram(programID)
 
-        /*glBindVertexArray(VAO);
+        //glBindVertexArray(VAO);
 
         //glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gl_texID);
@@ -162,24 +169,18 @@ void RenderGL(){
         //printf("%i",uniformLocation);
         glUniform1i(uniformLocation, 0);
 
-        //glActiveTexture(gl.TEXTURE0);
-        ///glBindTexture(gl.TEXTURE_2D, textureID1)
-        //MacroSetUniform1i(programID, 'diffuseTexture', 0)
-
-
-        //MacroSetUniformMatrix(programID, 'projection', projection)
-        //MacroSetUniformMatrix(programID, 'camera', camera)
-        //MacroSetUniformMatrix(programID, 'model', model)
-
-    
-        //gl.BindBuffer,gl.ELEMENT_ARRAY_BUFFER, *indID
-    
-        glDrawArrays(GL_TRIANGLES, 0, 6);*/
-    
-        //glDrawElements(gl.TRIANGLES, 3*2, gl.UNSIGNED_SHORT,0)
-
 
         mesh.Render();
+
+
+
+        /*//glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gl_texFontID);
+        uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
+        //printf("%i",uniformLocation);
+        glUniform1i(uniformLocation, 0);
+
+        meshTex.Render();*/
 
 
 }
