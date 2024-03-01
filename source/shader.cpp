@@ -2,21 +2,21 @@
 
 #include <gl/gl.h>
 
-
-/*class FS
+/*
+class FS
 {
 private:
 public:
-    void* ReadFile(char* fileName);
+    static void* readFileSync(char* fileName);
 };
 
-void* FS::ReadFile(char* fileName)
+void* FS::readFileSync(char* fileName)
 {
     HANDLE handle = CreateFile(fileName, GENERIC_READ,0,0,OPEN_EXISTING,FILE_ATTRIBUTE_NORMAL, 0);
     int fsize = GetFileSize(handle, 0);
     void* buffor = malloc(fsize);
     ReadFile(handle, buffor, fsize, 0, 0);
-    return &buffor;
+    return buffor;
 }
 
 FS fs;*/
@@ -40,7 +40,7 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
     int fsize = GetFileSize(handle, 0);
     void* buffor = malloc(fsize);
     ReadFile(handle, buffor, fsize, 0, 0);
-    //void* buffor = fs.ReadFile(vertfileName);
+    //void* buffor = FS::readFileSync(vertfileName);
 
     //printf(" OK %i ", fsize);
     //printf(" OK %s ", &buffor);
@@ -63,7 +63,7 @@ GLuint CreateShader(char* vertfileName,char* fragfileName){
     fsize = GetFileSize(handle, 0);
     buffor = malloc(fsize);
     ReadFile(handle, buffor, fsize, 0, 0);
-    //buffor = fs.ReadFile(fragfileName);
+    //buffor = FS::readFileSync(fragfileName);
 
     //printf(" OK %i ", fsize);
     //printf(" OK %s ", &buffor);
