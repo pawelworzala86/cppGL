@@ -16,10 +16,10 @@ void* FS::readFileSync(char* fileName)
     int fsize = GetFileSize(handle, 0);
     void* buffor = malloc(fsize);
     ReadFile(handle, buffor, fsize, 0, 0);
-    return buffor;
+    CloseHandle(handle);
+    return &buffor;
 }
-
-FS fs;*/
+*/
 
 
 GLuint CreateShader(char* vertfileName,char* fragfileName){

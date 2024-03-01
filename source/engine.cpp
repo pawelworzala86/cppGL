@@ -18,9 +18,64 @@ GLuint programID;
 
 
 
+class CMesh
+{
+    private:
+        GLuint VAO;
+        GLuint bufferID;
+    public:
+        CMesh();
+        ~CMesh();
+        void Init();
+        void CreateBuffer(int posID,int size,int length,void* array);
+        void Render();
+};
+CMesh::CMesh(){
+};
+CMesh::~CMesh(){
+};
+void CMesh::Init(){
+    glGenVertexArrays(1, &this->VAO);
+    glBindVertexArray(this->VAO);
+
+    this->CreateBuffer(0,3,18,&vertices);
+    this->CreateBuffer(1,2,12,&coords);
+
+    glBindVertexArray(NULL);
+};
+void CMesh::CreateBuffer(int posID,int size,int length,void* array){
+
+    glGenBuffers(1,&this->bufferID);
+    glBindBuffer(GL_ARRAY_BUFFER, this->bufferID);
+    glBufferData(GL_ARRAY_BUFFER, length*8, array,GL_STATIC_DRAW);
+
+    glEnableVertexAttribArray(posID);
+    glVertexAttribPointer(posID,size,GL_DOUBLE,GL_FALSE, size*8, 0);
+
+};
+void CMesh::Render(){
+    glBindVertexArray(this->VAO);
+
+        //glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, gl_texID);
+        GLuint uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
+        //printf("%i",uniformLocation);
+        glUniform1i(uniformLocation, 0);
+
+        //glActiveTexture(gl.TEXTURE0);
+        ///glBindTexture(gl.TEXTURE_2D, textureID1)
+        //MacroSetUniform1i(programID, 'diffuseTexture', 0)
 
 
+        //MacroSetUniformMatrix(programID, 'projection', projection)
+        //MacroSetUniformMatrix(programID, 'camera', camera)
+        //MacroSetUniformMatrix(programID, 'model', model)
 
+    
+        //gl.BindBuffer,gl.ELEMENT_ARRAY_BUFFER, *indID
+    
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+}
 
 
 
@@ -39,6 +94,8 @@ void CreateBuffer(int posID,int size,int length,void* array){
 }
 
 
+CMesh mesh;
+
 
 void CreateEngine(){
 
@@ -48,17 +105,17 @@ void CreateEngine(){
     programID = CreateShader("default.vert","default.frag");
  
 
+    mesh.Init();
 
 
 
 
 
+    //glGenVertexArrays(1, &VAO);
+    //glBindVertexArray(VAO);
 
-    glGenVertexArrays(1, &VAO);
-    glBindVertexArray(VAO);
 
-
-    CreateBuffer(0,3,18,&vertices);
+    //CreateBuffer(0,3,18,&vertices);
 
     /*glGenBuffers(1,&bufferID);
     glBindBuffer(GL_ARRAY_BUFFER, bufferID);
@@ -67,7 +124,7 @@ void CreateEngine(){
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0,3,GL_DOUBLE,GL_FALSE, 3*8, 0);*/
 
-    CreateBuffer(1,2,12,&coords);
+    //CreateBuffer(1,2,12,&coords);
 
     /*glGenBuffers(1,&bufferID);
     glBindBuffer(GL_ARRAY_BUFFER, bufferID);
@@ -97,7 +154,7 @@ void RenderGL(){
 
     //gl.UseProgram(programID)
 
-        glBindVertexArray(VAO);
+        /*glBindVertexArray(VAO);
 
         //glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gl_texID);
@@ -117,9 +174,12 @@ void RenderGL(){
     
         //gl.BindBuffer,gl.ELEMENT_ARRAY_BUFFER, *indID
     
-        glDrawArrays(GL_TRIANGLES, 0, 6);
+        glDrawArrays(GL_TRIANGLES, 0, 6);*/
     
         //glDrawElements(gl.TRIANGLES, 3*2, gl.UNSIGNED_SHORT,0)
+
+
+        mesh.Render();
 
 
 }
