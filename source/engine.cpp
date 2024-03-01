@@ -3,8 +3,8 @@
 #include "shader.cpp"
 
 
-int* VAO = NULL;
-int* bufferID = NULL;
+GLuint VAO;
+GLuint bufferID;
 
 double vertices[] = {1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0,1.0,1.0,0.0,-1.0,-1.0,0.0,-1.0,1.0,0.0};
 double coords[] = {1.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0};

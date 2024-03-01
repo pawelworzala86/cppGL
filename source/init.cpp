@@ -9,18 +9,29 @@
 
 
 
+GLuint GL_VERTEX_SHADER		  = 35633;
+GLuint GL_FRAGMENT_SHADER		  = 35632;
 
+GLuint GL_COMPILE_STATUS		  = 35713;
+GLuint GL_LINK_STATUS			  = 35650;
+GLuint GL_INFO_LOG_LENGTH = 35716;
+
+
+GLuint GL_ARRAY_BUFFER 		  = 34962;
+GLuint GL_STATIC_DRAW			  = 35044;
 
 
 
 typedef void (*GLUNIFORM1I) (int, GLuint);
-typedef void (*GLBINDVERTEXARRAY) (int*);
+typedef void (*GLBINDVERTEXARRAY) (GLuint);
+typedef void (*GLGENBUFFERS) (int, GLuint*);
+typedef GLuint (*GLCREATESHADER) (GLuint);
 
 GLUNIFORM1I glUniform1i = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
+GLGENBUFFERS glGenBuffers = NULL;
+GLCREATESHADER glCreateShader = NULL;
 
-PROC glGenBuffers = NULL;
-PROC glCreateShader = NULL;
 PROC glCreateProgram = NULL;
 PROC glShaderSource = NULL;
 PROC glCompileShader = NULL;
@@ -60,15 +71,7 @@ PROC glDetachShader = NULL;
 
 
 
-GLuint GL_VERTEX_SHADER		  = 35633;
-GLuint GL_FRAGMENT_SHADER		  = 35632;
-GLuint GL_COMPILE_STATUS		  = 35713;
-GLuint GL_LINK_STATUS			  = 35650;
-GLuint GL_INFO_LOG_LENGTH = 35716;
 
-
-    GLuint GL_ARRAY_BUFFER 		  = 34962;
-    GLuint GL_STATIC_DRAW			  = 35044;
 
 
 
@@ -88,10 +91,9 @@ int InitGL(){
 
     glUniform1i = (GLUNIFORM1I)wglGetProcAddress("glUniform1iv");
     glBindVertexArray = (GLBINDVERTEXARRAY)wglGetProcAddress("glBindVertexArray");
+    glGenBuffers = (GLGENBUFFERS)wglGetProcAddress("glGenBuffers");
+    glCreateShader = (GLCREATESHADER)wglGetProcAddress("glCreateShader");
 
-
-    glGenBuffers = wglGetProcAddress("glGenBuffers");
-    glCreateShader = wglGetProcAddress("glCreateShader");
     glCreateProgram = wglGetProcAddress("glCreateProgram");
     glShaderSource = wglGetProcAddress("glShaderSource");
     glCompileShader = wglGetProcAddress("glCompileShader");
