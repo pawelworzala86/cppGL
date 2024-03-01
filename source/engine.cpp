@@ -101,7 +101,7 @@ void RenderGL(){
 
         //glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gl_texID);
-        int uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
+        GLuint uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
         //printf("%i",uniformLocation);
         glUniform1i(uniformLocation, 0);
 

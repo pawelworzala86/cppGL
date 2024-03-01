@@ -29,6 +29,10 @@ typedef GLuint (*GLCREATESHADER) (GLuint);
 typedef GLuint (*GLCREATEPROGRAM) ();
 typedef void (*GLSHADERSOURCE) (GLuint,int,void*,void*);
 typedef void (*GLCOMPILESHADER) (GLuint);
+typedef void (*GLATTACHSHADER) (GLuint,GLuint);
+typedef void (*GLLINKPROGRAM) (GLuint);
+typedef void (*GLUSEPROGRAM) (GLuint);
+typedef GLuint (*GLGETUNIFORMLOCATION) (GLuint,char*);
 
 GLUNIFORM1I glUniform1i = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
@@ -37,11 +41,11 @@ GLCREATESHADER glCreateShader = NULL;
 GLCREATEPROGRAM glCreateProgram = NULL;
 GLSHADERSOURCE glShaderSource = NULL;
 GLCOMPILESHADER glCompileShader = NULL;
+GLATTACHSHADER glAttachShader = NULL;
+GLLINKPROGRAM glLinkProgram = NULL;
+GLUSEPROGRAM glUseProgram = NULL;
+GLGETUNIFORMLOCATION glGetUniformLocation = NULL;
 
-PROC glAttachShader = NULL;
-PROC glLinkProgram = NULL;
-PROC glUseProgram = NULL;
-PROC glGetUniformLocation = NULL;
 PROC glUniform4f = NULL;
 PROC glUniform4d = NULL;
 PROC glUniform1d = NULL;
@@ -99,11 +103,11 @@ int InitGL(){
     glCreateProgram = (GLCREATEPROGRAM)wglGetProcAddress("glCreateProgram");
     glShaderSource = (GLSHADERSOURCE)wglGetProcAddress("glShaderSource");
     glCompileShader = (GLCOMPILESHADER)wglGetProcAddress("glCompileShader");
+    glAttachShader = (GLATTACHSHADER)wglGetProcAddress("glAttachShader");
+    glLinkProgram = (GLLINKPROGRAM)wglGetProcAddress("glLinkProgram");
+    glUseProgram = (GLUSEPROGRAM)wglGetProcAddress("glUseProgram");
+    glGetUniformLocation = (GLGETUNIFORMLOCATION)wglGetProcAddress("glGetUniformLocation");
 
-    glAttachShader = wglGetProcAddress("glAttachShader");
-    glLinkProgram = wglGetProcAddress("glLinkProgram");
-    glUseProgram = wglGetProcAddress("glUseProgram");
-    glGetUniformLocation = wglGetProcAddress("glGetUniformLocation");
     glUniform4f = wglGetProcAddress("glUniform4f");
     glUniform4d = wglGetProcAddress("glUniform4d");
     glUniform1d = wglGetProcAddress("glUniform1d");
