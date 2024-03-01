@@ -24,6 +24,7 @@ GLuint GL_STATIC_DRAW			  = 35044;
 
 
 typedef void (*GLUNIFORM1I) (int, GLuint);
+typedef void (*GLUNIFORM1F) (int, GLfloat);
 typedef void (*GLBINDVERTEXARRAY) (GLuint);
 typedef void (*GLGENBUFFERS) (int, GLuint*);
 typedef GLuint (*GLCREATESHADER) (GLuint);
@@ -50,6 +51,7 @@ typedef void (*GLDELETESHADER) (GLuint);
 typedef void (*GLDETACHSHADER) (GLuint,GLuint);
 
 GLUNIFORM1I glUniform1i = NULL;
+GLUNIFORM1F glUniform1f = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
 GLGENBUFFERS glGenBuffers = NULL;
 GLCREATESHADER glCreateShader = NULL;
@@ -111,7 +113,8 @@ int InitGL(){
     GLuint buffer;
     glGenBuffers(1, &buffer);*/
 
-    glUniform1i = (GLUNIFORM1I)wglGetProcAddress("glUniform1iv");
+    glUniform1i = (GLUNIFORM1I)wglGetProcAddress("glUniform1i");
+    glUniform1f = (GLUNIFORM1F)wglGetProcAddress("glUniform1f");
     glBindVertexArray = (GLBINDVERTEXARRAY)wglGetProcAddress("glBindVertexArray");
     glGenBuffers = (GLGENBUFFERS)wglGetProcAddress("glGenBuffers");
     glCreateShader = (GLCREATESHADER)wglGetProcAddress("glCreateShader");

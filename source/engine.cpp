@@ -7,6 +7,7 @@ GLuint VAO;
 GLuint bufferID;
 
 double vertices[] = {1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0,1.0,1.0,0.0,-1.0,-1.0,0.0,-1.0,1.0,0.0};
+double vertices2[] = {1.0,1.0,0.0,1.0,-1.0,0.0,-1.0,-1.0,0.0,1.0,1.0,0.0,-1.0,-1.0,0.0,-1.0,1.0,0.0};
 double coords[] = {1.0,1.0,1.0,0.0,0.0,0.0,1.0,1.0,0.0,0.0,0.0,1.0};
 
 //char* texfileName = "girl.jpg";
@@ -14,8 +15,46 @@ int gl_texID = 0;
 int gl_texFontID = 0;
 
 GLuint programID;
+GLuint programFontID;
 
 
+float widthsFnt[] = {7.0,49.0,0.0,49.0,49.0,49.0,49.0,    
+        49.0,49.0,16.0,16.0,16.0,16.0,16.0,    
+        49.0,49.0,49.0,49.0,49.0,49.0,49.0,    
+        49.0,49.0,49.0,49.0,49.0,49.0,49.0,    
+        49.0,49.0,49.0,49.0,16.0,21.0,26.0,    
+        32.0,32.0,53.0,49.0,11.0,21.0,21.0,    
+        32.0,36.0,16.0,21.0,16.0,17.0,32.0,    
+        32.0,32.0,32.0,32.0,32.0,32.0,32.0,    //;1234567
+        32.0,32.0,17.0,17.0,36.0,36.0,36.0,    //;89
+        28.0,58.0,42.0,42.0,42.0,42.0,39.0,    //;  ABCDE
+        35.0,42.0,42.0, 21.0,24.0,42.0,39.0,    //;FGH IJKL
+        56.0,42.0,42.0,35.0,42.0,42.0,35.0,    //;MNOPQRS
+        39.0,42.0,42.0, 52.0,42.0,42.0,39.0,    //;TUV WXYZ
+        21.0,17.0,21.0,30.0,32.0,21.0,28.0,    //;      a
+        32.0,28.0,32.0,28.0,21.0,32.0,32.0,    //;bcdefgh
+        17.0,17.0,32.0,17.0,49.0,32.0,32.0,    //;ijklmno
+        32.0,32.0,21.0,24.0,17.0,32.0,32.0,    //;pqrstuv
+        46.0,32.0,32.0,28.0,30.0,12.0,30.0,    //;wxyz   
+        34.0,32.0,49.0,49.0,49.0,49.0,49.0,     
+        49.0,49.0,49.0,49.0,49.0,49.0,49.0,     
+        49.0,49.0,49.0,49.0,49.0,49.0,49.0,     
+        49.0,49.0,49.0,49.0,49.0,49.0,49.0,     
+        49.0,49.0,49.0,49.0,49.0,49.0,16.0,     
+        21.0,32.0,32.0,32.0,32.0,12.0,32.0,     
+        21.0,48.0,17.0,32.0,36.0,0.0,48.0,     
+        32.0,25.0,35.0,19.0,19.0,21.0,36.0,     
+        29.0,21.0,21.0,19.0,19.0,32.0,48.0,    
+        48.0,48.0,28.0,46.0,46.0,46.0,46.0,    //;   ÀÁÂÃ
+        46.0,46.0,56.0,42.0,39.0,39.0,39.0,    //;ÄÅÆÇÈÉÊ
+        39.0,21.0,21.0,21.0,21.0,46.0,46.0,    //;ËÌÍÎÏÐÑ
+        46.0,46.0,46.0,46.0,46.0,36.0,46.0,    //;ÒÓÔÕÖ  
+        46.0,46.0,46.0,46.0,46.0,35.0,32.0,     
+        28.0,28.0,28.0,28.0,28.0,28.0,42.0,     
+        28.0,28.0,28.0,28.0,28.0,17.0,17.0,     
+        17.0,17.0,32.0,32.0,32.0,32.0,32.0,     
+        32.0,32.0,35.0,32.0,32.0,32.0,32.0,     
+        32.0,32.0,32.0,32.0};
 
 
 
@@ -110,8 +149,20 @@ void CreateEngine(){
     mesh.Init(&vertices,&coords);
 
 
+    programFontID = CreateShader("font.vert","font.frag");
 
-    meshTex.Init(&vertices,&coords);
+
+
+    
+
+    for(int i=0;i<sizeof(vertices2)/8;i++){
+        vertices2[i] = vertices2[i] / 10.0;
+    }
+    /*for(int i=0;i<sizeof(vertices2)/8;i+=3){
+        vertices2[i] = vertices2[i] * sizeX;
+    }*/
+
+    meshTex.Init(&vertices2,&coords);
 
 
 
@@ -159,7 +210,7 @@ void RenderGL(){
     glClearColor(0.2f, 0.4f, 0.6f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    //gl.UseProgram(programID)
+    glUseProgram(programID);
 
         //glBindVertexArray(VAO);
 
@@ -173,16 +224,32 @@ void RenderGL(){
         mesh.Render();
 
 
+glUseProgram(programFontID);
 
-        /*//glActiveTexture(GL_TEXTURE0);
+        //glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, gl_texFontID);
-        uniformLocation = glGetUniformLocation(programID, "diffuseTexture");
+        uniformLocation = glGetUniformLocation(programFontID, "diffuseTexture");
         //printf("%i",uniformLocation);
         glUniform1i(uniformLocation, 0);
 
-        meshTex.Render();*/
+
+
+        
+        float offsetX = 0.0;
+
+        float sizeX = widthsFnt[65] / 64.0;
+        uniformLocation = glGetUniformLocation(programFontID, "offsetX");
+        glUniform1f(uniformLocation, offsetX);
+        offsetX += sizeX;
+
+        meshTex.Render();
+
+        sizeX = widthsFnt[65] / 64.0;
+        uniformLocation = glGetUniformLocation(programFontID, "offsetX");
+        glUniform1f(uniformLocation, offsetX);
+        offsetX += sizeX;
+
+        meshTex.Render();
 
 
 }
-
-
