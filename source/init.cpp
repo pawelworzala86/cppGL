@@ -27,7 +27,7 @@ typedef void (*GLBINDVERTEXARRAY) (GLuint);
 typedef void (*GLGENBUFFERS) (int, GLuint*);
 typedef GLuint (*GLCREATESHADER) (GLuint);
 typedef GLuint (*GLCREATEPROGRAM) ();
-typedef void (*GLSHADERSOURCE) (GLuint,int,GLuint*,int);
+typedef void (*GLSHADERSOURCE) (GLuint,int,void*,void*);
 
 GLUNIFORM1I glUniform1i = NULL;
 GLBINDVERTEXARRAY glBindVertexArray = NULL;
